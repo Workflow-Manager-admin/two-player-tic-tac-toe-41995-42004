@@ -1,104 +1,257 @@
-/* CSS Variables for Theme Management */
+/* --------------------------------------------- */
+/* Modern, minimalistic Tic Tac Toe - KAVIA      */
+/* --------------------------------------------- */
+
+/* Color Palette */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --color-primary: #4A90E2;
+  --color-secondary: #7B8D8E;
+  --color-accent: #F5A623;
+  --color-background: #fff;
+  --color-board-bg: #f5f8fa;
+  --color-x: var(--color-primary);
+  --color-o: var(--color-secondary);
+  --color-draw: var(--color-accent);
+  --color-square-border: #e2e4e6;
+  --color-shadow: rgba(74, 144, 226, 0.08);
+  --color-brand: var(--color-accent);
+  --color-text-main: #1A1A1A;
+  --color-text-muted: #959da5;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
-}
-
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+/* Layout Root */
+.ttt-app-bg {
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100vw;
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.ttt-container {
+  background: var(--color-board-bg);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 var(--color-shadow);
+  padding: 32px 28px 22px 28px;
+  margin: 24px;
+  min-width: 330px;
+  max-width: 376px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Scoreboard */
+.ttt-scoreboard {
+  width: 100%;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.ttt-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -1.8px;
+  margin: 0 0 6px 0;
+  color: var(--color-primary);
+}
+
+.ttt-scores {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  align-items: center;
+  margin-bottom: 4px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+.ttt-score {
   font-weight: 600;
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 10px;
+  border-radius: 10px;
+  user-select: none;
+}
+.ttt-score-x {
+  color: var(--color-x);
+  background: rgba(74, 144, 226, 0.07);
+}
+.ttt-score-o {
+  color: var(--color-o);
+  background: rgba(123, 141, 142, 0.07);
+}
+.ttt-score-draw {
+  color: var(--color-draw);
+  background: rgba(245, 166, 35, 0.07);
+}
+.ttt-score-number {
+  font-size: 1.15rem;
+}
+
+.ttt-status {
+  font-size: 1.01rem;
+  font-weight: 500;
+  margin-top: 8px;
+  min-height: 24px;
+  color: var(--color-text-main);
+}
+
+/* Board */
+.ttt-board {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 18px 0 12px 0;
+}
+
+.ttt-board-row {
+  display: flex;
+  gap: 0;
+}
+
+/* Squares */
+.ttt-square {
+  width: 72px;
+  height: 72px;
+  background: var(--color-background);
+  border: 2px solid var(--color-square-border);
+  margin: 0;
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: background 0.14s, border 0.15s;
+  border-radius: 12px;
+  box-shadow: none;
+  will-change: background, color, border;
+  position: relative;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.ttt-square:not(:last-child) {
+  /* no borders between squares */
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.ttt-square:active, .ttt-square:focus {
+  background: #f1f8fe;
+  border-color: var(--color-primary);
+}
+.ttt-square[disabled] {
+  cursor: default;
+  background: #f8fafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.ttt-square.highlight {
+  background: #e6f1fc;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* X and O coloring */
+.ttt-square {
+  /* default color */
+}
+.ttt-square:disabled {
+  opacity: 1;
+}
+.ttt-square:disabled[value="X"] {
+  color: var(--color-x);
+}
+.ttt-square:disabled[value="O"] {
+  color: var(--color-o);
+}
+.ttt-square[value="X"] {
+  color: var(--color-x);
+}
+.ttt-square[value="O"] {
+  color: var(--color-o);
+}
+
+/* Reset Button */
+.ttt-reset-btn {
+  width: 100%;
+  display: block;
+  margin: 18px 0 0 0;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(90deg,#4A90E2 40%, #F5A623 100%);
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.13s;
+  box-shadow: 0 1px 4px 0 var(--color-shadow);
+}
+.ttt-reset-btn:hover {
+  opacity: 0.998;
+  background: linear-gradient(90deg,#4178bb 20%, #f5a623 90%);
+}
+
+/* Footer/Brand */
+.ttt-footer {
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ttt-footer-brand {
+  font-size: 0.99rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 0px;
+  opacity: 0.87;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .ttt-container {
+    padding: 12px 0 18px 0;
+    min-width: unset;
+    max-width: 99vw;
+    width: 98vw;
+    margin: 2vw;
+    border-radius: 0;
   }
-  to {
-    transform: rotate(360deg);
+  .ttt-board {
+    margin: 8px 0 7px 0;
+  }
+  .ttt-square {
+    width: 19vw;
+    height: 19vw;
+    font-size: 2.4rem;
+    border-radius: 8px;
+  }
+  .ttt-title {
+    font-size: 1.48rem;
+    margin-bottom: 2px;
+  }
+  .ttt-reset-btn {
+    margin: 13px 0 0 0;
+    padding: 10px;
+    font-size: 0.99rem;
+  }
+  .ttt-score {
+    font-size: 0.97rem;
+    padding: 1px 7px;
+    border-radius: 7px;
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
-}
+/* Remove all legacy template styles */
